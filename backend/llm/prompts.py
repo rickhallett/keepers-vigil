@@ -156,6 +156,9 @@ def build_narrative_context(
     if context.get("base_description"):
         parts.append(f"Base description to expand: {context['base_description']}")
 
+    if context.get("extended_description"):
+        parts.append(f"Additional detail to weave in: {context['extended_description']}")
+
     if context.get("prompt_context"):
         parts.append(f"Character context: {context['prompt_context']}")
 

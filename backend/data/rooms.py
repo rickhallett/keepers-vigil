@@ -24,7 +24,7 @@ ROOMS = {
     "archive": {
         "name": "The Archive",
         "description": "Fragments of the world outside wash up here—objects, documents, echoes. Shelves line the walls, holding centuries of accumulated debris. Most is mundane. Some is not. To the north, a soft glow hints at something beyond—the passage, though it seems to resist approach.",
-        "objects": ["shelves", "technical_diagrams", "faded_map", "dust", "companion_origin_record"],
+        "objects": ["shelves", "technical_diagrams", "faded_map", "dust", "companion_origin_record", "creator_journal"],
         "exits": ["threshold", "passage"],
         "exit_aliases": {
             "back": "threshold", "entrance": "threshold", "main": "threshold", "archway": "threshold", "archways": "threshold",
