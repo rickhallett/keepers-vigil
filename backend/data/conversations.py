@@ -52,6 +52,10 @@ COMPANION_TOPICS = {
         "requires_flag": "found_technical_diagrams",
         "prompt_context": "The companion pauses before answering. 'You found those. Yes. The station was built. Everything was built by someone.' It will not say more unless the player has found companion_origin_record.",
     },
+    "the_passage": {
+        "requires_flag": None,
+        "prompt_context": "The companion speaks of the passage with reverence. 'It is where travelers go when they are ready. The light there is patient—it waits.' If the player has found_technical_diagrams, the companion adds: 'Some doors only open when the heart knows its path.' If companion_revealed_purpose is set, it may add: 'I have watched many pass through. It is always peaceful. Always right, in the end.'",
+    },
     "recognition": {
         "requires_flag": "found_companion_origin",
         "sets_flag": "companion_admitted_recognition",
