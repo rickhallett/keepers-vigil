@@ -75,6 +75,13 @@ You will receive:
 Respond with the narrative text only. No JSON, no metadata, no stage directions in brackets."""
 
 
+PASSAGE_FORESHADOWING = """When generating narrative for the archive or when the player has found_technical_diagrams:
+- Occasionally mention the soft glow from the northern passage
+- If player has companion_revealed_purpose, the glow should feel "inviting" or "patient"
+- The companion might glance toward it meaningfully
+"""
+
+
 OPENING_NARRATIVE_PROMPT = """Generate the opening scene for "The Last Vigil."
 
 The keeper (player) wakes in the threshold room. The companion is there, greeting them warmly as if this is routine - another day of their vigil. A new traveler has arrived and waits nearby, confused and flickering.
@@ -163,6 +170,16 @@ def build_narrative_context(
 
     if context.get("flag_set"):
         parts.append(f"A story flag was just set: {context['flag_set']}. This advances the narrative.")
+
+    # Add passage foreshadowing for archive scenes or when diagrams have been found
+    current_room = context.get("current_room", "")
+    if current_room == "archive" or "found_technical_diagrams" in active_flags:
+        foreshadowing_note = "Passage foreshadowing: "
+        if "companion_revealed_purpose" in active_flags:
+            foreshadowing_note += "The soft glow from the northern passage feels inviting, patient. The companion might glance toward it meaningfully."
+        else:
+            foreshadowing_note += "Occasionally mention the soft glow from the northern passage—it hints at something beyond."
+        parts.append(foreshadowing_note)
 
     parts.append("\nGenerate the narrative response (remember to naturally mention where the player can go):")
 
