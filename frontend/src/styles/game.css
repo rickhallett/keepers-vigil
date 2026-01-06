@@ -22,6 +22,13 @@
   --spacing-md: 1rem;
   --spacing-lg: 2rem;
   --spacing-xl: 4rem;
+
+  /* Mobile-specific */
+  --touch-target-min: 44px;
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-left: env(safe-area-inset-left, 0px);
+  --safe-area-right: env(safe-area-inset-right, 0px);
 }
 
 /* Global */
@@ -231,6 +238,7 @@ html, body {
   font-family: var(--font-ui);
   font-size: 0.8rem;
   color: var(--text-secondary);
+  position: relative;
 }
 
 .status-label {
@@ -247,6 +255,25 @@ html, body {
   text-align: right;
 }
 
+.status-toggle {
+  display: none;
+}
+
+/* Quick Actions */
+.quick-actions {
+  display: none;
+}
+
+/* Command Input Wrapper */
+.command-input-wrapper {
+  display: contents;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+  display: none;
+}
+
 /* Error Display */
 .error-message {
   color: #b85a5a;
@@ -256,27 +283,362 @@ html, body {
   font-size: 0.9rem;
 }
 
-/* Mobile Adjustments */
+/* Tablet breakpoint */
+@media (max-width: 768px) {
+  .game-container {
+    padding: var(--spacing-sm);
+    padding-left: calc(var(--spacing-sm) + var(--safe-area-left));
+    padding-right: calc(var(--spacing-sm) + var(--safe-area-right));
+  }
+
+  .narrative-entry {
+    margin-bottom: var(--spacing-md);
+  }
+}
+
+/* Mobile breakpoint */
 @media (max-width: 600px) {
   :root {
     font-size: 16px;
+    --spacing-md: 0.75rem;
+    --spacing-lg: 1.5rem;
+  }
+
+  html, body {
+    overscroll-behavior: none;
+    -webkit-text-size-adjust: 100%;
   }
 
   .game-container {
     padding: var(--spacing-sm);
+    padding-top: calc(var(--spacing-sm) + var(--safe-area-top));
+    padding-bottom: calc(var(--spacing-sm) + var(--safe-area-bottom));
+    padding-left: calc(var(--spacing-sm) + var(--safe-area-left));
+    padding-right: calc(var(--spacing-sm) + var(--safe-area-right));
+    height: 100dvh;
+  }
+
+  .start-screen {
+    padding: var(--spacing-lg);
+    justify-content: flex-start;
+    padding-top: 20vh;
   }
 
   .start-screen h1 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    letter-spacing: 0.15em;
+  }
+
+  .start-screen .subtitle {
+    font-size: 1rem;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .start-button {
+    padding: var(--spacing-md) var(--spacing-xl);
+    min-height: var(--touch-target-min);
+    font-size: 1rem;
+    width: 100%;
+    max-width: 280px;
   }
 
   .status-bar {
     flex-direction: column;
     gap: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    padding-right: calc(var(--spacing-sm) + var(--touch-target-min));
+    font-size: 0.75rem;
+    background: var(--bg-primary);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .status-bar.collapsed {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: var(--spacing-md);
+  }
+
+  .status-bar.collapsed .status-exits,
+  .status-bar.collapsed .status-inventory {
+    display: none;
+  }
+
+  .status-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: var(--spacing-xs);
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 0.7rem;
+    padding: var(--spacing-xs);
+    min-width: var(--touch-target-min);
+    min-height: var(--touch-target-min);
+    cursor: pointer;
   }
 
   .status-inventory {
     text-align: left;
+  }
+
+  .narrative-display {
+    flex: 1;
+    padding: var(--spacing-sm) 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .narrative-entry {
+    margin-bottom: var(--spacing-md);
+    padding: 0 var(--spacing-xs);
+  }
+
+  .narrative-player {
+    font-size: 0.9rem;
+    padding-left: var(--spacing-sm);
+  }
+
+  .command-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    bottom: 0;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+    z-index: 20;
+  }
+
+  .command-input {
+    padding: var(--spacing-sm);
+    padding-bottom: calc(var(--spacing-sm) + var(--safe-area-bottom));
+    border-top: none;
+  }
+
+  .command-input input {
+    font-size: 16px;
+    min-height: var(--touch-target-min);
+    padding: var(--spacing-sm);
+  }
+
+  .command-input .prompt {
+    min-width: var(--touch-target-min);
+    min-height: var(--touch-target-min);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .quick-actions {
+    display: flex;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .quick-actions::-webkit-scrollbar {
+    display: none;
+  }
+
+  .quick-action-btn {
+    flex-shrink: 0;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 4px;
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    min-height: 36px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .quick-action-btn:active {
+    background: var(--border);
+    color: var(--text-primary);
+  }
+
+  .quick-action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .narrative-loading {
+    padding: var(--spacing-md);
+    text-align: center;
+    font-size: 1.2rem;
+  }
+
+  .loading-overlay {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(13, 13, 13, 0.7);
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+  }
+
+  .loading-overlay .loading-text {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-family: var(--font-narrative);
+    font-style: italic;
+    animation: pulse 1.5s infinite;
+  }
+
+  .error-message {
+    padding: var(--spacing-md);
+    margin: var(--spacing-sm);
+    border-radius: 4px;
+    background: rgba(184, 90, 90, 0.1);
+  }
+}
+
+/* Small mobile breakpoint */
+@media (max-width: 375px) {
+  :root {
+    font-size: 14px;
+  }
+
+  .start-screen h1 {
+    font-size: 1.4rem;
+  }
+
+  .status-bar {
+    font-size: 0.7rem;
+  }
+
+  .quick-action-btn {
+    font-size: 0.7rem;
+    padding: var(--spacing-xs);
+  }
+}
+
+/* Landscape orientation */
+@media (max-height: 500px) and (orientation: landscape) {
+  .game-container {
+    flex-direction: row;
+    gap: var(--spacing-md);
+  }
+
+  .narrative-display {
+    flex: 2;
+    height: 100%;
+  }
+
+  .command-input-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: static;
+    background: transparent;
+    border-top: none;
+  }
+
+  .status-bar {
+    position: absolute;
+    top: var(--spacing-xs);
+    right: var(--spacing-xs);
+    flex-direction: row;
+    background: rgba(13, 13, 13, 0.9);
+    padding: var(--spacing-xs);
+    border-radius: 4px;
+    font-size: 0.7rem;
+    border-bottom: none;
+  }
+
+  .status-toggle {
+    display: none;
+  }
+
+  .start-screen {
+    padding-top: var(--spacing-lg);
+  }
+
+  .quick-actions {
+    flex-wrap: wrap;
+  }
+}
+
+/* Keyboard visible detection */
+.keyboard-visible .narrative-display {
+  max-height: 40vh;
+}
+
+.keyboard-visible .status-bar {
+  display: none;
+}
+
+.keyboard-visible .quick-actions {
+  display: none;
+}
+
+/* Touch-specific styles */
+@media (hover: none) and (pointer: coarse) {
+  .start-button,
+  .quick-action-btn {
+    min-height: 48px;
+  }
+
+  .start-button:hover {
+    background: transparent;
+    color: var(--accent);
+  }
+
+  .start-button:active {
+    background: var(--accent);
+    color: var(--bg-primary);
+  }
+
+  .narrative-entry {
+    -webkit-tap-highlight-color: rgba(201, 169, 89, 0.1);
+  }
+
+  .status-bar,
+  .command-input,
+  .quick-actions {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .narrative-entry {
+    animation: none;
+  }
+
+  .cursor {
+    animation: none;
+    opacity: 1;
+  }
+
+  .loading-dots {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* Dark mode preference */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
   }
 }
 
@@ -284,7 +646,8 @@ html, body {
 @media print {
   .command-input,
   .status-bar,
-  .start-screen {
+  .start-screen,
+  .quick-actions {
     display: none;
   }
 

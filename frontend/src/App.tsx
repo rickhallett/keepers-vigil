@@ -1,7 +1,9 @@
 import { useGameState } from './hooks/useGameState';
+import { useKeyboardVisibility } from './hooks/useKeyboardVisibility';
 import { NarrativeDisplay } from './components/NarrativeDisplay';
 import { CommandInput } from './components/CommandInput';
 import { StatusBar } from './components/StatusBar';
+import { QuickActions } from './components/QuickActions';
 import './styles/game.css';
 
 function App() {
@@ -16,6 +18,8 @@ function App() {
     startNewGame,
     sendCommand,
   } = useGameState();
+
+  const isKeyboardVisible = useKeyboardVisibility();
 
   if (!gameStarted) {
     return (
@@ -37,11 +41,26 @@ function App() {
   }
 
   return (
-    <div className="game-container">
+    <div className={`game-container ${isKeyboardVisible ? 'keyboard-visible' : ''}`}>
       <StatusBar currentRoom={currentRoom} inventory={inventory} exits={exits} />
       <NarrativeDisplay entries={narrative} isLoading={isLoading} />
-      <CommandInput onSubmit={sendCommand} disabled={isLoading} />
+
+      <div className="command-input-wrapper">
+        <QuickActions
+          onAction={sendCommand}
+          disabled={isLoading}
+          currentRoom={currentRoom}
+        />
+        <CommandInput onSubmit={sendCommand} disabled={isLoading} />
+      </div>
+
       {error && <p className="error-message">{error}</p>}
+
+      {isLoading && (
+        <div className="loading-overlay" aria-live="polite">
+          <span className="loading-text">The station contemplates...</span>
+        </div>
+      )}
     </div>
   );
 }
