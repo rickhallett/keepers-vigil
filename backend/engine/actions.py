@@ -118,6 +118,7 @@ def _execute_examine(intent: Intent, state: GameState) -> tuple[GameState, Actio
                 "target": target,
                 "object_name": obj.get("name", target),
                 "base_description": obj.get("examine_base", ""),
+                "extended_description": obj.get("examine_extended", ""),
                 "narrative_note": obj.get("narrative_note", ""),
                 "flag_set": sets_flag if flag_newly_set else None,
                 "is_discovery": flag_newly_set,
