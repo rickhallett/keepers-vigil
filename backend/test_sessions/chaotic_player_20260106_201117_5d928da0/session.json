@@ -1,0 +1,319 @@
+{
+  "session_id": "chaotic_player_20260106_201117_5d928da0",
+  "persona_name": "chaotic_player",
+  "persona_description": "An unpredictable player who makes random choices without clear logic. Tests edge cases and unexpected command sequences. May repeat commands, ignore context, or try unusual combinations.",
+  "started_at": "2026-01-06T20:11:17.881302",
+  "ended_at": "2026-01-06T20:11:23.673343",
+  "interactions": [
+    {
+      "turn": 0,
+      "timestamp": "2026-01-06T20:11:18.138511",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/new-game",
+        "payload": null
+      },
+      "response": {
+        "status_code": 200,
+        "body": {
+          "session_id": "df3f60f5-9577-4538-9459-41b37a822aef",
+          "narrative": "You wake, as you have many times before.\n\nThe threshold stretches before you\u2014stone archways framing an entrance that shifts at the edges of your vision. Light comes from everywhere and nowhere. The air is still, patient. This is the station between, and you are its keeper.\n\nThe companion is here, as always. A presence more than a form, warm and attentive. \"Another has arrived,\" it says. \"They are... confused. As they often are.\"\n\nNear the archway, a figure waits. The traveler. They flicker slightly, not quite solid, not quite here. They look around with the expression of someone trying to remember a dream.\n\nYou know what to do. You have always known. But something about this one feels different.\n\nPerhaps you should speak to the traveler, or ask your companion what they've observed. You could explore the keeper's cell or the archive. The station holds many secrets, and some of them may matter now.",
+          "current_room": "threshold",
+          "inventory": [],
+          "exits": [
+            "keeper_cell",
+            "archive"
+          ]
+        },
+        "elapsed_ms": 244.9462990007305,
+        "error": null
+      }
+    },
+    {
+      "turn": 1,
+      "timestamp": "2026-01-06T20:11:18.412704",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/command",
+        "payload": {
+          "session_id": "df3f60f5-9577-4538-9459-41b37a822aef",
+          "input": "think"
+        }
+      },
+      "response": {
+        "status_code": 200,
+        "body": {
+          "narrative": "I don't quite understand. You could go to The Keeper's Cell or The Archive, examine objects, or talk to someone here.",
+          "current_room": "threshold",
+          "inventory": [],
+          "exits": [
+            "keeper_cell",
+            "archive"
+          ],
+          "state_changed": false
+        },
+        "elapsed_ms": 233.52524199799518,
+        "error": null
+      }
+    },
+    {
+      "turn": 2,
+      "timestamp": "2026-01-06T20:11:19.521479",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/command",
+        "payload": {
+          "session_id": "df3f60f5-9577-4538-9459-41b37a822aef",
+          "input": "what is happening"
+        }
+      },
+      "response": {
+        "status_code": 200,
+        "body": {
+          "narrative": "I don't quite understand. You could go to The Keeper's Cell or The Archive, examine objects, or talk to someone here.",
+          "current_room": "threshold",
+          "inventory": [],
+          "exits": [
+            "keeper_cell",
+            "archive"
+          ],
+          "state_changed": false
+        },
+        "elapsed_ms": 578.5238009993918,
+        "error": null
+      }
+    },
+    {
+      "turn": 3,
+      "timestamp": "2026-01-06T20:11:20.289485",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/command",
+        "payload": {
+          "session_id": "df3f60f5-9577-4538-9459-41b37a822aef",
+          "input": "take strange_light"
+        }
+      },
+      "response": {
+        "status_code": 200,
+        "body": {
+          "narrative": "I don't quite understand. You could go to The Keeper's Cell or The Archive, examine objects, or talk to someone here.",
+          "current_room": "threshold",
+          "inventory": [],
+          "exits": [
+            "keeper_cell",
+            "archive"
+          ],
+          "state_changed": false
+        },
+        "elapsed_ms": 238.59596100010094,
+        "error": null
+      }
+    },
+    {
+      "turn": 4,
+      "timestamp": "2026-01-06T20:11:21.005566",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/command",
+        "payload": {
+          "session_id": "df3f60f5-9577-4538-9459-41b37a822aef",
+          "input": "inventory"
+        }
+      },
+      "response": {
+        "status_code": 200,
+        "body": {
+          "narrative": "I don't quite understand. You could go to The Keeper's Cell or The Archive, examine objects, or talk to someone here.",
+          "current_room": "threshold",
+          "inventory": [],
+          "exits": [
+            "keeper_cell",
+            "archive"
+          ],
+          "state_changed": false
+        },
+        "elapsed_ms": 186.73498000134714,
+        "error": null
+      }
+    },
+    {
+      "turn": 5,
+      "timestamp": "2026-01-06T20:11:23.156875",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/command",
+        "payload": {
+          "session_id": "df3f60f5-9577-4538-9459-41b37a822aef",
+          "input": "inventory"
+        }
+      },
+      "response": {
+        "status_code": 200,
+        "body": {
+          "narrative": "I don't quite understand. You could go to The Keeper's Cell or The Archive, examine objects, or talk to someone here.",
+          "current_room": "threshold",
+          "inventory": [],
+          "exits": [
+            "keeper_cell",
+            "archive"
+          ],
+          "state_changed": false
+        },
+        "elapsed_ms": 1622.890725000616,
+        "error": null
+      }
+    }
+  ],
+  "state_snapshots": [
+    {
+      "turn_number": 0,
+      "current_room": "threshold",
+      "inventory": [],
+      "exits": [
+        "keeper_cell",
+        "archive"
+      ],
+      "available_objects": [],
+      "available_characters": [],
+      "timestamp": "2026-01-06T20:11:18.138967"
+    },
+    {
+      "turn_number": 0,
+      "current_room": "threshold",
+      "inventory": [],
+      "exits": [
+        "keeper_cell",
+        "archive"
+      ],
+      "available_objects": [
+        "archway",
+        "stone_floor",
+        "strange_light"
+      ],
+      "available_characters": [
+        "traveler",
+        "companion"
+      ],
+      "timestamp": "2026-01-06T20:11:18.155174"
+    },
+    {
+      "turn_number": 1,
+      "current_room": "threshold",
+      "inventory": [],
+      "exits": [
+        "keeper_cell",
+        "archive"
+      ],
+      "available_objects": [],
+      "available_characters": [],
+      "timestamp": "2026-01-06T20:11:18.412953"
+    },
+    {
+      "turn_number": 2,
+      "current_room": "threshold",
+      "inventory": [],
+      "exits": [
+        "keeper_cell",
+        "archive"
+      ],
+      "available_objects": [],
+      "available_characters": [],
+      "timestamp": "2026-01-06T20:11:19.521746"
+    },
+    {
+      "turn_number": 3,
+      "current_room": "threshold",
+      "inventory": [],
+      "exits": [
+        "keeper_cell",
+        "archive"
+      ],
+      "available_objects": [],
+      "available_characters": [],
+      "timestamp": "2026-01-06T20:11:20.289734"
+    },
+    {
+      "turn_number": 4,
+      "current_room": "threshold",
+      "inventory": [],
+      "exits": [
+        "keeper_cell",
+        "archive"
+      ],
+      "available_objects": [],
+      "available_characters": [],
+      "timestamp": "2026-01-06T20:11:21.005856"
+    },
+    {
+      "turn_number": 5,
+      "current_room": "threshold",
+      "inventory": [],
+      "exits": [
+        "keeper_cell",
+        "archive"
+      ],
+      "available_objects": [],
+      "available_characters": [],
+      "timestamp": "2026-01-06T20:11:23.157124"
+    }
+  ],
+  "narratives": [
+    {
+      "turn": 0,
+      "command": "[GAME START]",
+      "narrative": "You wake, as you have many times before.\n\nThe threshold stretches before you\u2014stone archways framing an entrance that shifts at the edges of your vision. Light comes from everywhere and nowhere. The air is still, patient. This is the station between, and you are its keeper.\n\nThe companion is here, as always. A presence more than a form, warm and attentive. \"Another has arrived,\" it says. \"They are... confused. As they often are.\"\n\nNear the archway, a figure waits. The traveler. They flicker slightly, not quite solid, not quite here. They look around with the expression of someone trying to remember a dream.\n\nYou know what to do. You have always known. But something about this one feels different.\n\nPerhaps you should speak to the traveler, or ask your companion what they've observed. You could explore the keeper's cell or the archive. The station holds many secrets, and some of them may matter now.",
+      "is_error": false,
+      "timestamp": "2026-01-06T20:11:18.138955"
+    },
+    {
+      "turn": 1,
+      "command": "think",
+      "narrative": "I don't quite understand. You could go to The Keeper's Cell or The Archive, examine objects, or talk to someone here.",
+      "is_error": false,
+      "timestamp": "2026-01-06T20:11:18.412940"
+    },
+    {
+      "turn": 2,
+      "command": "what is happening",
+      "narrative": "I don't quite understand. You could go to The Keeper's Cell or The Archive, examine objects, or talk to someone here.",
+      "is_error": false,
+      "timestamp": "2026-01-06T20:11:19.521734"
+    },
+    {
+      "turn": 3,
+      "command": "take strange_light",
+      "narrative": "I don't quite understand. You could go to The Keeper's Cell or The Archive, examine objects, or talk to someone here.",
+      "is_error": false,
+      "timestamp": "2026-01-06T20:11:20.289723"
+    },
+    {
+      "turn": 4,
+      "command": "inventory",
+      "narrative": "I don't quite understand. You could go to The Keeper's Cell or The Archive, examine objects, or talk to someone here.",
+      "is_error": false,
+      "timestamp": "2026-01-06T20:11:21.005842"
+    },
+    {
+      "turn": 5,
+      "command": "inventory",
+      "narrative": "I don't quite understand. You could go to The Keeper's Cell or The Archive, examine objects, or talk to someone here.",
+      "is_error": false,
+      "timestamp": "2026-01-06T20:11:23.157112"
+    }
+  ],
+  "ending_reached": null,
+  "total_turns": 6,
+  "errors": [],
+  "flags_discovered": [],
+  "rooms_visited": [
+    "threshold"
+  ],
+  "average_response_time_ms": 517.5361680000302,
+  "commands_used": {
+    "think": 1,
+    "what": 1,
+    "take": 1,
+    "inventory": 2
+  }
+}
