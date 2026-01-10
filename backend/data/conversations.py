@@ -79,6 +79,10 @@ COMPANION_TOPICS = {
         "requires_flag": "found_old_letter",
         "prompt_context": "The companion's voice changes—softer, more vulnerable. 'They called me that. When I was new. When they were teaching me.' This is the companion at its most open. It may express something like grief, or gratitude, or simply a long-held silence finally breaking.",
     },
+    "creator": {
+        "requires_flag": "found_creator_journal",
+        "prompt_context": "The companion speaks of the one who made it, the one who built the station. 'They wanted to help. Even knowing they would pass through themselves someday.' The companion might mention 'They told me they left a letter somewhere—the letter room, I think. In case they ever... in case someone who mattered came through.'",
+    },
 }
 
 

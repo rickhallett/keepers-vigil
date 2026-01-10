@@ -6,7 +6,7 @@ OBJECTS = {
         "sets_flag": "found_technical_diagrams",
         "requires_flag": None,
         "hidden": False,
-        "narrative_note": "First hint that the station was built, not grown. The companion's response to questions about this should be evasive.",
+        "narrative_note": "First hint that the station was built, not grown. The companion's response to questions about this should be evasive. Among the annotations, one symbol appears repeatedly—the same symbol etched into a crystalline device resting on a nearby shelf. The companion's gaze drifts toward it.",
     },
     "keeper_journal": {
         "name": "Keeper's Journal",
@@ -27,7 +27,7 @@ OBJECTS = {
         "narrative_note": "Only becomes meaningful after companion reveals it recognizes the traveler. This is the player-identity hint.",
     },
     "companion_origin_record": {
-        "name": "Strange Device",
+        "name": "Crystalline Device",
         "room": "archive",
         "examine_base": "A crystalline object covered in the same script as the diagrams. When you touch it, you feel a hum—almost like a heartbeat. The companion goes very still when you pick it up.",
         "sets_flag": "found_companion_origin",
@@ -42,7 +42,7 @@ OBJECTS = {
         "sets_flag": "found_creator_journal",
         "requires_flag": "found_technical_diagrams",
         "hidden": False,
-        "narrative_note": "Confirms the station's origin. The companion should recognize quotes from this.",
+        "narrative_note": "Confirms the station's origin. The companion should recognize quotes from this. The final entry mentions: 'I've left a letter in the letter room. If they ever come through here... I want them to know.' This hints at the old_letter.",
     },
     "old_letter": {
         "name": "Faded Letter",
