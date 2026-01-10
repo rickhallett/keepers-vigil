@@ -1,5 +1,6 @@
 """Narrative generation using Claude API."""
 
+import asyncio
 import hashlib
 import logging
 import time
@@ -15,6 +16,9 @@ from .prompts import (
 )
 
 logger = logging.getLogger(__name__)
+
+# Timeout for narrative generation (seconds)
+NARRATIVE_TIMEOUT = 15.0
 
 # Cache for narrative responses (action + context hash -> response)
 _narrative_cache: dict[str, str] = {}
@@ -133,15 +137,14 @@ async def generate_narrative(
     )
 
     try:
-        client = get_client()
-        response = client.messages.create(
-            model="claude-sonnet-4-20250514",
-            max_tokens=512,  # Reduced from 1024 - most responses are < 300 tokens
-            system=NARRATIVE_SYSTEM_PROMPT,
-            messages=[{"role": "user", "content": narrative_context}],
+        # Run the sync API call in a thread pool with timeout
+        result = await asyncio.wait_for(
+            asyncio.to_thread(
+                _generate_narrative_sync,
+                narrative_context,
+            ),
+            timeout=NARRATIVE_TIMEOUT,
         )
-
-        result = response.content[0].text.strip()
 
         # Cache the result if cacheable
         if cache_key:
@@ -152,10 +155,30 @@ async def generate_narrative(
 
         return result
 
+    except asyncio.TimeoutError:
+        logger.warning(f"Narrative generation timed out after {NARRATIVE_TIMEOUT}s")
+        return get_fallback_narrative(action, result_context, state)
+
     except Exception as e:
         logger.error(f"Narrative generation error: {e}")
         # Return fallback
         return get_fallback_narrative(action, result_context, state)
+
+
+def _generate_narrative_sync(narrative_context: str) -> str:
+    """
+    Synchronous implementation of narrative generation.
+    Called via asyncio.to_thread for proper async timeout support.
+    """
+    client = get_client()
+    response = client.messages.create(
+        model="claude-sonnet-4-20250514",
+        max_tokens=512,  # Reduced from 1024 - most responses are < 300 tokens
+        system=NARRATIVE_SYSTEM_PROMPT,
+        messages=[{"role": "user", "content": narrative_context}],
+    )
+
+    return response.content[0].text.strip()
 
 
 def get_fallback_narrative(action: str, context: dict, state: GameState) -> str:
