@@ -40,8 +40,8 @@ OBJECTS = {
         "room": "archive",
         "examine_base": "Hidden behind other documents. A personal journal, technical but also emotional. The writer speaks of building something to outlast them. 'If we cannot know what waits, we can at least make the crossing gentle.'",
         "sets_flag": "found_creator_journal",
-        "requires_flag": "found_companion_origin",
-        "hidden": True,
+        "requires_flag": "found_technical_diagrams",
+        "hidden": False,
         "narrative_note": "Confirms the station's origin. The companion should recognize quotes from this.",
     },
     "old_letter": {
@@ -49,8 +49,8 @@ OBJECTS = {
         "room": "letter_room",
         "examine_base": "An old letter, never collected. The handwriting matches the creator's journal. It's addressed to someone called 'Little Light.' It speaks of hope, of what they're building, of wanting to leave something good behind.",
         "sets_flag": "found_old_letter",
-        "requires_flag": "found_creator_journal",
-        "hidden": True,
+        "requires_flag": "found_companion_origin",
+        "hidden": False,
         "narrative_note": "Emotional resonance. 'Little Light' was their name for the companion. This is what lets the companion finally speak freely.",
     },
     # Ambient objects (no special flags)

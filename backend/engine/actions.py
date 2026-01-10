@@ -81,6 +81,10 @@ def _execute_move(intent: Intent, state: GameState) -> tuple[GameState, ActionRe
     state.current_room = new_room
     room_data = ROOMS.get(target, {})
 
+    # Auto-reveal traveler identity when entering passage
+    if target == "passage" and not state.flags.traveler_identity_revealed:
+        state.flags.traveler_identity_revealed = True
+
     return state, ActionResult(
         success=True,
         context={
