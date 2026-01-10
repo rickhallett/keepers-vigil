@@ -41,3 +41,7 @@ class GameState(BaseModel):
     flags: GameFlags = GameFlags()
     conversation_history: list[dict] = []
     turn_count: int = 0
+
+    # Hint system tracking
+    repeated_failures: dict[str, int] = {}  # Track repeated failed actions by type
+    last_hint_turn: int = 0  # Prevent hint spam

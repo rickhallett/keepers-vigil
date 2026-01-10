@@ -4,6 +4,12 @@ from models.state import GameState, Room
 from models.intent import Intent, IntentType
 from data.rooms import ROOMS, get_visible_objects, resolve_room_alias, get_exit_descriptions
 from data.objects import OBJECTS, can_examine_object
+from engine.hints import (
+    get_progressive_hint,
+    should_show_hint,
+    record_failure,
+    record_hint_shown,
+)
 
 
 def validate_intent(intent: Intent, state: GameState) -> bool | str:
@@ -12,6 +18,9 @@ def validate_intent(intent: Intent, state: GameState) -> bool | str:
 
     Returns:
         True if valid, or an error message string if invalid.
+
+    Side effects:
+        May update state.repeated_failures and state.last_hint_turn for hint tracking.
     """
     room_id = state.current_room.value
     room = ROOMS.get(room_id, {})
@@ -58,7 +67,18 @@ def validate_intent(intent: Intent, state: GameState) -> bool | str:
         if target_room and "locked_until" in target_room:
             for required_flag in target_room["locked_until"]:
                 if not flags_dict.get(required_flag, False):
-                    return "The way forward is not yet open to you. Something must first be understood."
+                    # Track this failure for progressive hints
+                    # Use "passage_locked" key to match HINT_PROGRESSIONS
+                    failure_key = "passage_locked"
+                    record_failure(state, failure_key)
+
+                    base_msg = "The way forward is not yet open to you."
+                    if should_show_hint(state):
+                        hint = get_progressive_hint(state, failure_key)
+                        if hint:
+                            record_hint_shown(state)
+                            return f"{base_msg} {hint}"
+                    return base_msg
 
         return True
 

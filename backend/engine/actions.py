@@ -12,6 +12,7 @@ from data.conversations import (
     get_companion_topic,
     can_trigger_ending,
 )
+from engine.hints import get_contextual_suggestions
 
 
 class ActionResult:
@@ -320,16 +321,21 @@ def _execute_use(intent: Intent, state: GameState) -> tuple[GameState, ActionRes
 
 
 def _execute_help(state: GameState) -> tuple[GameState, ActionResult]:
-    """Show help information."""
-    help_text = """
-You can interact with the world by typing natural language commands. Try:
+    """Show help information with contextual suggestions."""
+    base_help = """You can interact with the world by typing natural language commands. Try:
 - LOOK or LOOK AROUND to see your surroundings
 - EXAMINE [object] to study something closely
 - GO TO [place] or MOVE TO [place] to travel
 - TALK TO [character] to speak with someone
 - ASK [character] ABOUT [topic] to inquire about something specific
-- INVENTORY to see what you carry
-"""
+- INVENTORY to see what you carry"""
+
+    # Add contextual suggestions based on progress
+    suggestions = get_contextual_suggestions(state)
+    if suggestions:
+        help_text = base_help + "\n\n" + suggestions[0]
+    else:
+        help_text = base_help
 
     return state, ActionResult(
         success=True,
