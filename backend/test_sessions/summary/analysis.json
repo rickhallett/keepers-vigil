@@ -1,59 +1,154 @@
 {
-  "generated_at": "2026-01-10T17:28:34.428879",
-  "sessions_analyzed": 10,
+  "generated_at": "2026-01-10T19:51:23.969165",
+  "sessions_analyzed": 16,
   "endings_reached": {
-    "none": 10
+    "none": 16
   },
   "rooms_coverage": {
-    "threshold": 10,
-    "archive": 9,
-    "keeper_cell": 2,
-    "letter_room": 2
+    "threshold": 16,
+    "archive": 15,
+    "keeper_cell": 4,
+    "letter_room": 4,
+    "passage": 4
   },
   "flags_coverage": {
-    "found_technical_diagrams": 9,
-    "found_keeper_logs": 3,
-    "found_creator_journal": 1
+    "found_technical_diagrams": 15,
+    "found_keeper_logs": 6,
+    "found_creator_journal": 5,
+    "found_companion_origin": 2,
+    "companion_admitted_recognition": 1,
+    "traveler_identity_revealed": 1
   },
   "commands_usage": {
-    "talk": 40,
-    "go": 62,
-    "examine": 70,
-    "eat": 3,
-    "i'm": 5,
+    "talk": 121,
+    "go": 166,
+    "examine": 139,
+    "eat": 5,
+    "i'm": 7,
     "check": 1,
     "move": 1,
     "converse": 2,
-    "what": 9,
-    "help": 15,
+    "what": 15,
+    "help": 71,
     "dance": 1,
-    "og": 1,
+    "og": 2,
     "sing": 1,
     "examien": 2,
-    "examin": 1,
+    "examin": 2,
     "fly": 1,
-    "exmaine": 2,
-    "attack": 1,
+    "exmaine": 3,
+    "attack": 4,
     "g0": 1,
     "head": 2,
     "talkk": 1,
-    "ask": 27,
-    "inventory": 10,
+    "ask": 134,
+    "inventory": 61,
     "think": 1,
     "take": 1,
-    "look": 10
+    "look": 59,
+    "pick": 3,
+    "walk": 1,
+    "speak": 1,
+    "i": 1,
+    "inspect": 1,
+    "???": 1,
+    "takl": 1,
+    "wait": 1,
+    "give": 5,
+    "use": 2,
+    "smell": 1
   },
   "average_turns_to_ending": 0.0,
-  "average_response_time_ms": 8054.8429677737995,
+  "average_response_time_ms": 7129.118012320962,
   "max_response_time_ms": 33692.279424001754,
   "total_errors": 0,
   "error_patterns": [],
   "persona_outcomes": {
     "speedrunner": {
+      "sessions": 6,
+      "completed": 0,
+      "endings": {},
+      "avg_turns": 24.5,
+      "errors": 0,
+      "rooms_visited": [
+        "passage",
+        "archive",
+        "threshold"
+      ],
+      "flags_found": [
+        "found_creator_journal",
+        "found_technical_diagrams"
+      ],
+      "completion_rate": 0.0
+    },
+    "methodical_explorer": {
       "sessions": 4,
       "completed": 0,
       "endings": {},
-      "avg_turns": 11.25,
+      "avg_turns": 59.5,
+      "errors": 0,
+      "rooms_visited": [
+        "passage",
+        "threshold",
+        "keeper_cell",
+        "letter_room",
+        "archive"
+      ],
+      "flags_found": [
+        "found_creator_journal",
+        "found_technical_diagrams",
+        "found_keeper_logs",
+        "found_companion_origin"
+      ],
+      "completion_rate": 0.0
+    },
+    "confused_user": {
+      "sessions": 2,
+      "completed": 0,
+      "endings": {},
+      "avg_turns": 81.0,
+      "errors": 0,
+      "rooms_visited": [
+        "letter_room",
+        "keeper_cell",
+        "archive",
+        "threshold"
+      ],
+      "flags_found": [
+        "found_creator_journal",
+        "found_keeper_logs",
+        "found_technical_diagrams"
+      ],
+      "completion_rate": 0.0
+    },
+    "completionist": {
+      "sessions": 2,
+      "completed": 0,
+      "endings": {},
+      "avg_turns": 131.5,
+      "errors": 0,
+      "rooms_visited": [
+        "passage",
+        "threshold",
+        "keeper_cell",
+        "letter_room",
+        "archive"
+      ],
+      "flags_found": [
+        "found_creator_journal",
+        "found_technical_diagrams",
+        "found_keeper_logs",
+        "traveler_identity_revealed",
+        "companion_admitted_recognition",
+        "found_companion_origin"
+      ],
+      "completion_rate": 0.0
+    },
+    "chaotic_player": {
+      "sessions": 2,
+      "completed": 0,
+      "endings": {},
+      "avg_turns": 14.0,
       "errors": 0,
       "rooms_visited": [
         "archive",
@@ -63,79 +158,20 @@
         "found_technical_diagrams"
       ],
       "completion_rate": 0.0
-    },
-    "methodical_explorer": {
-      "sessions": 3,
-      "completed": 0,
-      "endings": {},
-      "avg_turns": 29.0,
-      "errors": 0,
-      "rooms_visited": [
-        "archive",
-        "threshold",
-        "keeper_cell",
-        "letter_room"
-      ],
-      "flags_found": [
-        "found_technical_diagrams",
-        "found_keeper_logs",
-        "found_creator_journal"
-      ],
-      "completion_rate": 0.0
-    },
-    "confused_user": {
-      "sessions": 1,
-      "completed": 0,
-      "endings": {},
-      "avg_turns": 81.0,
-      "errors": 0,
-      "rooms_visited": [
-        "archive",
-        "threshold",
-        "keeper_cell",
-        "letter_room"
-      ],
-      "flags_found": [
-        "found_technical_diagrams",
-        "found_keeper_logs"
-      ],
-      "completion_rate": 0.0
-    },
-    "completionist": {
-      "sessions": 1,
-      "completed": 0,
-      "endings": {},
-      "avg_turns": 62.0,
-      "errors": 0,
-      "rooms_visited": [
-        "archive",
-        "threshold"
-      ],
-      "flags_found": [
-        "found_technical_diagrams",
-        "found_keeper_logs"
-      ],
-      "completion_rate": 0.0
-    },
-    "chaotic_player": {
-      "sessions": 1,
-      "completed": 0,
-      "endings": {},
-      "avg_turns": 6.0,
-      "errors": 0,
-      "rooms_visited": [
-        "threshold"
-      ],
-      "flags_found": [],
-      "completion_rate": 0.0
     }
   },
-  "stuck_sessions": 1,
-  "incomplete_sessions": 10,
+  "stuck_sessions": 2,
+  "incomplete_sessions": 16,
   "common_failure_points": [
     "archive: go passage",
     "letter_room: help",
     "archive: ask companion about the player",
-    "threshold: inventory"
+    "threshold: inventory",
+    "passage: look",
+    "passage: inventory",
+    "passage: go archive",
+    "archive: talk to companion",
+    "passage: talk to traveler",
+    "archive: look down"
   ]
 }

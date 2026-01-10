@@ -1,40 +1,10 @@
 [
   {
     "id": "IMP-0001",
-    "title": "Improve discoverability of passage",
-    "category": "ux_flow",
-    "priority": "medium",
-    "description": "The passage room was never visited across all test sessions.",
-    "justification": "If a room is consistently missed, players may be lacking guidance on how to reach it or why they should explore it.",
-    "evidence": [],
-    "affected_files": [
-      "backend/data/rooms.py",
-      "backend/llm/narrative.py"
-    ],
-    "estimated_effort": "low",
-    "created_at": "2026-01-10T17:28:34.429535"
-  },
-  {
-    "id": "IMP-0002",
-    "title": "Improve hint system for found_creator_journal",
-    "category": "ux_flow",
-    "priority": "medium",
-    "description": "The flag 'found_creator_journal' was only discovered in 1/10 sessions (10.0%).",
-    "justification": "Low discovery rates suggest players may need better hints or more obvious pathways to find this content.",
-    "evidence": [],
-    "affected_files": [
-      "backend/data/objects.py",
-      "backend/llm/prompts.py"
-    ],
-    "estimated_effort": "medium",
-    "created_at": "2026-01-10T17:28:34.429572"
-  },
-  {
-    "id": "IMP-0003",
     "title": "Improve hint system for found_companion_origin",
     "category": "ux_flow",
     "priority": "medium",
-    "description": "The flag 'found_companion_origin' was only discovered in 0/10 sessions (0.0%).",
+    "description": "The flag 'found_companion_origin' was only discovered in 2/16 sessions (12.5%).",
     "justification": "Low discovery rates suggest players may need better hints or more obvious pathways to find this content.",
     "evidence": [],
     "affected_files": [
@@ -42,14 +12,14 @@
       "backend/llm/prompts.py"
     ],
     "estimated_effort": "medium",
-    "created_at": "2026-01-10T17:28:34.429594"
+    "created_at": "2026-01-10T19:51:23.970056"
   },
   {
-    "id": "IMP-0004",
+    "id": "IMP-0002",
     "title": "Improve hint system for found_old_letter",
     "category": "ux_flow",
     "priority": "medium",
-    "description": "The flag 'found_old_letter' was only discovered in 0/10 sessions (0.0%).",
+    "description": "The flag 'found_old_letter' was only discovered in 0/16 sessions (0.0%).",
     "justification": "Low discovery rates suggest players may need better hints or more obvious pathways to find this content.",
     "evidence": [],
     "affected_files": [
@@ -57,14 +27,14 @@
       "backend/llm/prompts.py"
     ],
     "estimated_effort": "medium",
-    "created_at": "2026-01-10T17:28:34.429610"
+    "created_at": "2026-01-10T19:51:23.970090"
   },
   {
-    "id": "IMP-0005",
+    "id": "IMP-0003",
     "title": "Reduce difficulty of reaching endings",
     "category": "balance",
     "priority": "high",
-    "description": "10/10 sessions failed to reach any ending.",
+    "description": "16/16 sessions failed to reach any ending.",
     "justification": "Over 50% of sessions not reaching an ending indicates the game may be too difficult or confusing for players to complete.",
     "evidence": [],
     "affected_files": [
@@ -72,14 +42,14 @@
       "backend/llm/narrative.py"
     ],
     "estimated_effort": "high",
-    "created_at": "2026-01-10T17:28:34.429626"
+    "created_at": "2026-01-10T19:51:23.970111"
   },
   {
-    "id": "IMP-0006",
+    "id": "IMP-0004",
     "title": "Optimize API response times",
     "category": "performance",
     "priority": "high",
-    "description": "Average response time is 8055ms, which may feel slow to users.",
+    "description": "Average response time is 7129ms, which may feel slow to users.",
     "justification": "Response times over 3 seconds can frustrate users and break immersion in a narrative game.",
     "evidence": [],
     "affected_files": [
@@ -87,10 +57,10 @@
       "backend/llm/narrative.py"
     ],
     "estimated_effort": "high",
-    "created_at": "2026-01-10T17:28:34.429643"
+    "created_at": "2026-01-10T19:51:23.970133"
   },
   {
-    "id": "IMP-0007",
+    "id": "IMP-0005",
     "title": "Add timeout handling for slow requests",
     "category": "error_handling",
     "priority": "medium",
@@ -102,14 +72,14 @@
       "frontend/src/api/client.ts"
     ],
     "estimated_effort": "medium",
-    "created_at": "2026-01-10T17:28:34.429659"
+    "created_at": "2026-01-10T19:51:23.970150"
   },
   {
-    "id": "IMP-0008",
+    "id": "IMP-0006",
     "title": "Add progressive hints for stuck players",
     "category": "ux_flow",
     "priority": "high",
-    "description": "1 sessions got stuck and couldn't progress.",
+    "description": "2 sessions got stuck and couldn't progress.",
     "justification": "Players getting stuck indicates they need better guidance. A progressive hint system could help without spoiling the experience.",
     "evidence": [],
     "affected_files": [
@@ -117,10 +87,10 @@
       "backend/llm/narrative.py"
     ],
     "estimated_effort": "high",
-    "created_at": "2026-01-10T17:28:34.429674"
+    "created_at": "2026-01-10T19:51:23.970172"
   },
   {
-    "id": "IMP-0009",
+    "id": "IMP-0007",
     "title": "Improve guidance at common failure points",
     "category": "ux_flow",
     "priority": "medium",
@@ -130,13 +100,19 @@
       "archive: go passage",
       "letter_room: help",
       "archive: ask companion about the player",
-      "threshold: inventory"
+      "threshold: inventory",
+      "passage: look",
+      "passage: inventory",
+      "passage: go archive",
+      "archive: talk to companion",
+      "passage: talk to traveler",
+      "archive: look down"
     ],
     "affected_files": [
       "backend/llm/narrative.py",
       "backend/data/rooms.py"
     ],
     "estimated_effort": "medium",
-    "created_at": "2026-01-10T17:28:34.429688"
+    "created_at": "2026-01-10T19:51:23.970189"
   }
 ]

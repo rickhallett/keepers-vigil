@@ -1,7 +1,7 @@
 # Test Session Analysis Report
 
-**Generated:** 2026-01-10T17:28:34.428879
-**Sessions Analyzed:** 10
+**Generated:** 2026-01-10T19:51:23.969165
+**Sessions Analyzed:** 16
 
 ---
 
@@ -9,27 +9,31 @@
 
 ### Endings Reached
 
-- **none:** 10 (100.0%)
+- **none:** 16 (100.0%)
 
 ### Room Coverage
 
-- **threshold:** 10 visits (100.0%)
-- **archive:** 9 visits (90.0%)
-- **keeper_cell:** 2 visits (20.0%)
-- **letter_room:** 2 visits (20.0%)
+- **threshold:** 16 visits (100.0%)
+- **archive:** 15 visits (93.8%)
+- **keeper_cell:** 4 visits (25.0%)
+- **letter_room:** 4 visits (25.0%)
+- **passage:** 4 visits (25.0%)
 
 ### Flag Discovery Coverage
 
-- **found_technical_diagrams:** 9 (90.0%)
-- **found_keeper_logs:** 3 (30.0%)
-- **found_creator_journal:** 1 (10.0%)
+- **found_technical_diagrams:** 15 (93.8%)
+- **found_keeper_logs:** 6 (37.5%)
+- **found_creator_journal:** 5 (31.2%)
+- **found_companion_origin:** 2 (12.5%)
+- **companion_admitted_recognition:** 1 (6.2%)
+- **traveler_identity_revealed:** 1 (6.2%)
 
 ---
 
 ## Performance Metrics
 
 - **Average Turns to Ending:** 0.0
-- **Average Response Time:** 8054.84ms
+- **Average Response Time:** 7129.12ms
 - **Max Response Time:** 33692.28ms
 
 ---
@@ -44,55 +48,55 @@
 
 ### speedrunner
 
-- Sessions: 4
+- Sessions: 6
 - Completion Rate: 0.0%
-- Average Turns: 11.2
+- Average Turns: 24.5
 - Errors: 0
-- Rooms Visited: archive, threshold
-- Flags Found: found_technical_diagrams
+- Rooms Visited: passage, archive, threshold
+- Flags Found: found_creator_journal, found_technical_diagrams
 
 ### methodical_explorer
 
-- Sessions: 3
+- Sessions: 4
 - Completion Rate: 0.0%
-- Average Turns: 29.0
+- Average Turns: 59.5
 - Errors: 0
-- Rooms Visited: archive, threshold, keeper_cell, letter_room
-- Flags Found: found_technical_diagrams, found_keeper_logs, found_creator_journal
+- Rooms Visited: passage, threshold, keeper_cell, letter_room, archive
+- Flags Found: found_creator_journal, found_technical_diagrams, found_keeper_logs, found_companion_origin
 
 ### confused_user
 
-- Sessions: 1
+- Sessions: 2
 - Completion Rate: 0.0%
 - Average Turns: 81.0
 - Errors: 0
-- Rooms Visited: archive, threshold, keeper_cell, letter_room
-- Flags Found: found_technical_diagrams, found_keeper_logs
+- Rooms Visited: letter_room, keeper_cell, archive, threshold
+- Flags Found: found_creator_journal, found_keeper_logs, found_technical_diagrams
 
 ### completionist
 
-- Sessions: 1
+- Sessions: 2
 - Completion Rate: 0.0%
-- Average Turns: 62.0
+- Average Turns: 131.5
 - Errors: 0
-- Rooms Visited: archive, threshold
-- Flags Found: found_technical_diagrams, found_keeper_logs
+- Rooms Visited: passage, threshold, keeper_cell, letter_room, archive
+- Flags Found: found_creator_journal, found_technical_diagrams, found_keeper_logs, traveler_identity_revealed, companion_admitted_recognition, found_companion_origin
 
 ### chaotic_player
 
-- Sessions: 1
+- Sessions: 2
 - Completion Rate: 0.0%
-- Average Turns: 6.0
+- Average Turns: 14.0
 - Errors: 0
-- Rooms Visited: threshold
-- Flags Found: 
+- Rooms Visited: archive, threshold
+- Flags Found: found_technical_diagrams
 
 ---
 
 ## UX Insights
 
-- **Stuck Sessions:** 1
-- **Incomplete Sessions:** 10
+- **Stuck Sessions:** 2
+- **Incomplete Sessions:** 16
 
 ### Common Failure Points
 
@@ -100,3 +104,9 @@
 - letter_room: help
 - archive: ask companion about the player
 - threshold: inventory
+- passage: look
+- passage: inventory
+- passage: go archive
+- archive: talk to companion
+- passage: talk to traveler
+- archive: look down

@@ -162,6 +162,11 @@ html, body {
   font-style: italic;
 }
 
+/* Typewriter Effect */
+.narrative-entry.typing {
+  cursor: pointer;
+}
+
 .cursor {
   animation: blink 1s infinite;
   color: var(--accent);

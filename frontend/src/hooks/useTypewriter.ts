@@ -10,7 +10,7 @@ export function useTypewriter(
   text: string,
   options: UseTypewriterOptions = {}
 ) {
-  const { speed = 20, startDelay = 0, onComplete } = options;
+  const { speed = 18, startDelay = 0, onComplete } = options;
 
   const [displayedText, setDisplayedText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -57,11 +57,11 @@ export function useTypewriter(
         setDisplayedText(text.slice(0, indexRef.current + 1));
         indexRef.current++;
 
-        // Vary speed slightly for natural feel
-        const variance = Math.random() * 10 - 5;
-        const nextSpeed = Math.max(5, speed + variance);
+        // Slight variance for natural feel
+        const variance = Math.random() * 6 - 3;
+        const nextSpeed = Math.max(8, speed + variance);
 
-        // Pause longer on punctuation
+        // Pause on punctuation
         const char = text[indexRef.current - 1];
         const pauseMultiplier = /[.!?]/.test(char) ? 8 : /[,;:]/.test(char) ? 3 : 1;
 

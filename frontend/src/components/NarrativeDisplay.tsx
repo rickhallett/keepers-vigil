@@ -18,20 +18,19 @@ function NarrativeEntryComponent({
   const shouldTypewrite = isLatest && entry.type === 'narrator';
   const { displayedText, isTyping, skipToEnd } = useTypewriter(
     shouldTypewrite ? entry.text : '',
-    { speed: 15 }
+    { speed: 18 }
   );
 
   const text = shouldTypewrite ? displayedText : entry.text;
 
   return (
     <div
-      className={`narrative-entry narrative-${entry.type}`}
+      className={`narrative-entry narrative-${entry.type} ${isTyping ? 'typing' : ''}`}
       onClick={isTyping ? skipToEnd : undefined}
     >
       {text.split('\n').map((line, i) => (
         <p key={i}>{line || '\u00A0'}</p>
       ))}
-      {isTyping && <span className="cursor">|</span>}
     </div>
   );
 }

@@ -1,19 +1,19 @@
 # Improvement Recommendations
 
-**Generated:** 2026-01-10T17:28:34.429975
-**Total Improvements:** 9
+**Generated:** 2026-01-10T19:51:23.970514
+**Total Improvements:** 7
 
 ---
 
 ## HIGH Priority
 
-### [IMP-0005] Reduce difficulty of reaching endings
+### [IMP-0003] Reduce difficulty of reaching endings
 
 **Category:** balance
 **Estimated Effort:** high
 
 **Description:**
-10/10 sessions failed to reach any ending.
+16/16 sessions failed to reach any ending.
 
 **Justification:**
 Over 50% of sessions not reaching an ending indicates the game may be too difficult or confusing for players to complete.
@@ -22,13 +22,13 @@ Over 50% of sessions not reaching an ending indicates the game may be too diffic
 
 ---
 
-### [IMP-0006] Optimize API response times
+### [IMP-0004] Optimize API response times
 
 **Category:** performance
 **Estimated Effort:** high
 
 **Description:**
-Average response time is 8055ms, which may feel slow to users.
+Average response time is 7129ms, which may feel slow to users.
 
 **Justification:**
 Response times over 3 seconds can frustrate users and break immersion in a narrative game.
@@ -37,13 +37,13 @@ Response times over 3 seconds can frustrate users and break immersion in a narra
 
 ---
 
-### [IMP-0008] Add progressive hints for stuck players
+### [IMP-0006] Add progressive hints for stuck players
 
 **Category:** ux_flow
 **Estimated Effort:** high
 
 **Description:**
-1 sessions got stuck and couldn't progress.
+2 sessions got stuck and couldn't progress.
 
 **Justification:**
 Players getting stuck indicates they need better guidance. A progressive hint system could help without spoiling the experience.
@@ -54,28 +54,13 @@ Players getting stuck indicates they need better guidance. A progressive hint sy
 
 ## MEDIUM Priority
 
-### [IMP-0001] Improve discoverability of passage
-
-**Category:** ux_flow
-**Estimated Effort:** low
-
-**Description:**
-The passage room was never visited across all test sessions.
-
-**Justification:**
-If a room is consistently missed, players may be lacking guidance on how to reach it or why they should explore it.
-
-**Affected Files:** backend/data/rooms.py, backend/llm/narrative.py
-
----
-
-### [IMP-0002] Improve hint system for found_creator_journal
+### [IMP-0001] Improve hint system for found_companion_origin
 
 **Category:** ux_flow
 **Estimated Effort:** medium
 
 **Description:**
-The flag 'found_creator_journal' was only discovered in 1/10 sessions (10.0%).
+The flag 'found_companion_origin' was only discovered in 2/16 sessions (12.5%).
 
 **Justification:**
 Low discovery rates suggest players may need better hints or more obvious pathways to find this content.
@@ -84,13 +69,13 @@ Low discovery rates suggest players may need better hints or more obvious pathwa
 
 ---
 
-### [IMP-0003] Improve hint system for found_companion_origin
+### [IMP-0002] Improve hint system for found_old_letter
 
 **Category:** ux_flow
 **Estimated Effort:** medium
 
 **Description:**
-The flag 'found_companion_origin' was only discovered in 0/10 sessions (0.0%).
+The flag 'found_old_letter' was only discovered in 0/16 sessions (0.0%).
 
 **Justification:**
 Low discovery rates suggest players may need better hints or more obvious pathways to find this content.
@@ -99,22 +84,7 @@ Low discovery rates suggest players may need better hints or more obvious pathwa
 
 ---
 
-### [IMP-0004] Improve hint system for found_old_letter
-
-**Category:** ux_flow
-**Estimated Effort:** medium
-
-**Description:**
-The flag 'found_old_letter' was only discovered in 0/10 sessions (0.0%).
-
-**Justification:**
-Low discovery rates suggest players may need better hints or more obvious pathways to find this content.
-
-**Affected Files:** backend/data/objects.py, backend/llm/prompts.py
-
----
-
-### [IMP-0007] Add timeout handling for slow requests
+### [IMP-0005] Add timeout handling for slow requests
 
 **Category:** error_handling
 **Estimated Effort:** medium
@@ -129,7 +99,7 @@ Occasional very slow responses can make the game appear frozen. Adding timeouts 
 
 ---
 
-### [IMP-0009] Improve guidance at common failure points
+### [IMP-0007] Improve guidance at common failure points
 
 **Category:** ux_flow
 **Estimated Effort:** medium
