@@ -1,5 +1,8 @@
 """Narrative generation using Claude API."""
 
+import hashlib
+import logging
+import time
 from anthropic import Anthropic
 
 from models.state import GameState
@@ -10,6 +13,44 @@ from .prompts import (
     OPENING_NARRATIVE_PROMPT,
     build_narrative_context,
 )
+
+logger = logging.getLogger(__name__)
+
+# Cache for narrative responses (action + context hash -> response)
+_narrative_cache: dict[str, str] = {}
+_cache_stats = {"hits": 0, "misses": 0}
+
+
+def _make_cache_key(action: str, context: dict, flags: dict) -> str:
+    """Generate a cache key from action, context, and flags."""
+    # Only cache deterministic actions (LOOK, EXAMINE with same object)
+    # Don't cache TALK/ASK_ABOUT as they should feel varied
+    if action not in ("LOOK", "EXAMINE", "MOVE"):
+        return ""
+
+    # Build key from relevant context
+    key_parts = [
+        action,
+        context.get("room_id") or "",
+        context.get("target") or "",
+        str(sorted((k, v) for k, v in flags.items() if v)),  # Only true flags
+    ]
+    key_str = "|".join(key_parts)
+    return hashlib.md5(key_str.encode()).hexdigest()
+
+
+def get_cache_stats() -> dict:
+    """Get cache statistics."""
+    total = _cache_stats["hits"] + _cache_stats["misses"]
+    hit_rate = _cache_stats["hits"] / total if total > 0 else 0
+    return {**_cache_stats, "total": total, "hit_rate": hit_rate}
+
+
+def clear_cache():
+    """Clear the narrative cache."""
+    _narrative_cache.clear()
+    _cache_stats["hits"] = 0
+    _cache_stats["misses"] = 0
 
 
 _client: Anthropic | None = None
@@ -52,6 +93,8 @@ async def generate_narrative(
 
     Returns atmospheric narrative text.
     """
+    start_time = time.perf_counter()
+
     # Check for help - return fixed text
     if action == "HELP":
         if action_result and action_result.message:
@@ -69,6 +112,16 @@ async def generate_narrative(
     result_context = action_result.context if action_result else {}
     flags_dict = state.flags.model_dump()
 
+    # Check cache first
+    cache_key = _make_cache_key(action, result_context, flags_dict)
+    if cache_key and cache_key in _narrative_cache:
+        _cache_stats["hits"] += 1
+        elapsed = (time.perf_counter() - start_time) * 1000
+        logger.debug(f"Narrative cache hit for {action}: {elapsed:.0f}ms")
+        return _narrative_cache[cache_key]
+
+    _cache_stats["misses"] += 1
+
     narrative_context = build_narrative_context(
         action=action,
         context=result_context,
@@ -79,15 +132,24 @@ async def generate_narrative(
         client = get_client()
         response = client.messages.create(
             model="claude-sonnet-4-20250514",
-            max_tokens=1024,
+            max_tokens=512,  # Reduced from 1024 - most responses are < 300 tokens
             system=NARRATIVE_SYSTEM_PROMPT,
             messages=[{"role": "user", "content": narrative_context}],
         )
 
-        return response.content[0].text.strip()
+        result = response.content[0].text.strip()
+
+        # Cache the result if cacheable
+        if cache_key:
+            _narrative_cache[cache_key] = result
+
+        elapsed = (time.perf_counter() - start_time) * 1000
+        logger.debug(f"Narrative generated for {action}: {elapsed:.0f}ms")
+
+        return result
 
     except Exception as e:
-        print(f"Narrative generation error: {e}")
+        logger.error(f"Narrative generation error: {e}")
         # Return fallback
         return get_fallback_narrative(action, result_context, state)
 

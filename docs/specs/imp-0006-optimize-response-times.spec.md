@@ -3,7 +3,7 @@
 **Priority:** HIGH
 **Category:** performance
 **Effort:** high
-**Status:** proposed
+**Status:** complete
 
 ## Affected Files
 

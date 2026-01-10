@@ -1,0 +1,34 @@
+{
+  "intent_classification": {
+    "count": 5,
+    "min_ms": 1100.850292999894,
+    "max_ms": 1397.4229710001964,
+    "mean_ms": 1220.2330877999884,
+    "median_ms": 1143.6046339999848,
+    "stdev_ms": 129.2636028664732,
+    "p95_ms": 1397.4229710001964
+  },
+  "narrative_generation": {
+    "count": 4,
+    "min_ms": 7702.2272469998825,
+    "max_ms": 9941.613743999824,
+    "mean_ms": 8958.220804749886,
+    "median_ms": 9094.521113999917,
+    "stdev_ms": 982.7930772205057,
+    "p95_ms": 9941.613743999824
+  },
+  "opening_narrative": {
+    "count": 3,
+    "min_ms": 9428.15596599985,
+    "max_ms": 10862.043768000149,
+    "mean_ms": 10006.028571999954
+  },
+  "full_cycle": {
+    "uncached_count": 4,
+    "uncached_mean_ms": 7551.336472999878,
+    "uncached_p95_ms": 10120.55968499999,
+    "cached_count": 3,
+    "cached_mean_ms": 1227.7889800000896,
+    "cached_p95_ms": 1332.2584349998579
+  }
+}

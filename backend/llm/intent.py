@@ -1,13 +1,17 @@
 """Intent classification using Claude API."""
 
 import json
+import logging
 import os
+import time
 from anthropic import Anthropic
 
 from models.intent import Intent, IntentType
 from models.state import GameState
 from data.rooms import ROOMS, get_visible_objects
 from .prompts import INTENT_CLASSIFICATION_PROMPT, build_intent_context
+
+logger = logging.getLogger(__name__)
 
 
 _client: Anthropic | None = None
@@ -27,6 +31,8 @@ async def classify_intent(player_input: str, state: GameState) -> Intent:
 
     Returns an Intent object with the classified action.
     """
+    start_time = time.perf_counter()
+
     room_id = state.current_room.value
     room = ROOMS.get(room_id, {})
     flags_dict = state.flags.model_dump()
@@ -45,7 +51,7 @@ async def classify_intent(player_input: str, state: GameState) -> Intent:
     try:
         client = get_client()
         response = client.messages.create(
-            model="claude-sonnet-4-20250514",
+            model="claude-3-5-haiku-20241022",  # Faster model for structured output
             max_tokens=256,
             system=INTENT_CLASSIFICATION_PROMPT,
             messages=[{"role": "user", "content": context}],
@@ -61,6 +67,9 @@ async def classify_intent(player_input: str, state: GameState) -> Intent:
 
         parsed = json.loads(response_text)
 
+        elapsed = (time.perf_counter() - start_time) * 1000
+        logger.debug(f"Intent classified in {elapsed:.0f}ms: {parsed.get('intent')}")
+
         return Intent(
             intent=IntentType(parsed.get("intent", "UNKNOWN")),
             target=parsed.get("target"),
@@ -74,7 +83,7 @@ async def classify_intent(player_input: str, state: GameState) -> Intent:
 
     except Exception as e:
         # Log error and return unknown intent
-        print(f"Intent classification error: {e}")
+        logger.error(f"Intent classification error: {e}")
         return Intent(intent=IntentType.UNKNOWN, confidence="low")
 
 
