@@ -116,13 +116,15 @@ class PlayerAgent:
         narrative_lower = narrative.lower()
 
         flag_hints = {
-            "found_technical_diagrams": ["technical diagram", "blueprint", "schematics"],
-            "found_creator_journal": ["creator's journal", "personal journal", "handwritten journal"],
-            "found_companion_origin": ["companion's origin", "created the companion", "built me"],
-            "found_keeper_logs": ["keeper's log", "previous keeper", "vigil records"],
-            "found_old_letter": ["old letter", "faded letter", "dear little light"],
-            "traveler_identity_revealed": ["you built this", "you created", "your creation"],
-            "companion_admitted_recognition": ["i know who you are", "i remember you", "my creator"],
+            "found_technical_diagrams": ["technical diagram", "blueprint", "schematics", "precise drawings", "engineer might"],
+            "found_creator_journal": ["creator's journal", "personal journal", "handwritten journal", "outlast them", "crossing gentle"],
+            "found_companion_origin": ["companion's origin", "created the companion", "built me", "crystalline object", "companion goes very still"],
+            "found_keeper_logs": ["keeper's log", "previous keeper", "vigil records", "new keeper installed", "chose to remain"],
+            "found_old_letter": ["old letter", "faded letter", "dear little light", "little light"],
+            "traveler_identity_revealed": ["you built this", "you created", "your creation", "they made", "recognize the work"],
+            "companion_admitted_recognition": ["i know who you are", "i remember you", "my creator", "i know them", "they made me"],
+            "companion_revealed_purpose": ["created to help souls pass", "cannot pass itself", "doesn't know if it has a soul", "performed understanding"],
+            "player_identity_revealed": ["you came here once", "as a traveler", "you could not let go", "chose to stay", "you forgot"],
         }
 
         for flag, hints in flag_hints.items():

@@ -169,8 +169,49 @@ OBJECTS = {
 }
 
 
+# Object name aliases for natural language matching
+OBJECT_ALIASES = {
+    "technical_diagrams": ["technical diagrams", "diagrams", "drawings", "blueprints", "technical drawings", "schematics"],
+    "keeper_journal": ["keeper journal", "journal", "keeper's journal", "the journal"],
+    "keeper_logs": ["keeper logs", "logs", "keeper's logs", "the logs", "official logs"],
+    "companion_origin_record": ["crystalline device", "crystal", "device", "crystalline", "strange device", "crystal device", "the device", "origin record"],
+    "creator_journal": ["creator journal", "creator's journal", "personal journal", "hidden journal"],
+    "old_letter": ["old letter", "faded letter", "letter to little light", "the letter", "little light letter"],
+    "letter_collection": ["letter collection", "letters", "collection", "all letters"],
+    "archway": ["archway", "arch", "stone arch", "entrance arch"],
+    "shelves": ["shelves", "shelf", "bookshelves", "bookshelf"],
+    "doorway": ["doorway", "door", "the doorway", "passage door"],
+    "candles": ["candles", "candle", "candlelight"],
+    "bed": ["bed", "simple bed", "the bed"],
+    "desk": ["desk", "writing desk", "the desk"],
+    "window": ["window", "the window"],
+}
+
+
 def get_object(obj_id: str) -> dict | None:
     return OBJECTS.get(obj_id)
+
+
+def resolve_object_alias(text: str) -> str | None:
+    """Resolve natural language object reference to actual object ID."""
+    text = text.lower().strip()
+
+    # Direct match
+    if text in OBJECTS:
+        return text
+
+    # Check aliases
+    for obj_id, aliases in OBJECT_ALIASES.items():
+        if text in aliases:
+            return obj_id
+
+    # Fuzzy match - check if text contains or is contained by alias
+    for obj_id, aliases in OBJECT_ALIASES.items():
+        for alias in aliases:
+            if alias in text or text in alias:
+                return obj_id
+
+    return None
 
 
 def can_examine_object(obj_id: str, flags: dict) -> bool:

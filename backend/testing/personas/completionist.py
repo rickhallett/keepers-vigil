@@ -71,6 +71,20 @@ class Completionist(Persona):
         """Actions to maximize discovery."""
         actions = []
 
+        # Check if we can trigger endings (both identities revealed)
+        if (
+            "traveler_identity_revealed" in context.flags_discovered
+            and "player_identity_revealed" in context.flags_discovered
+        ):
+            # Prioritize trying to reach the passage if we're ready
+            if context.current_room == "passage":
+                # Try to trigger an ending
+                actions.append("tell them everything")  # Truth ending
+                actions.append("let them go")  # Peace ending
+                actions.append("i will stay")  # Stay ending
+            elif "passage" in context.exits:
+                actions.append("go passage")
+
         # Always look first in new rooms
         if context.current_room not in context.rooms_visited:
             actions.append("look")

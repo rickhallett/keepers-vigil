@@ -52,6 +52,19 @@ letter_room (old_letter) -> threshold (talk traveler) -> passage -> ending
         """Get actions for the critical path."""
         actions = []
 
+        # Check if we can trigger endings (both identities revealed)
+        if (
+            "traveler_identity_revealed" in context.flags_discovered
+            and "player_identity_revealed" in context.flags_discovered
+        ):
+            if context.current_room == "passage":
+                # Speedrunner just picks the quickest ending
+                actions.append("tell them everything")
+                return actions
+            elif "passage" in context.exits:
+                actions.append("go passage")
+                return actions
+
         # Early game: talk to traveler first
         if context.turn_number < 5 and "traveler" in context.available_characters:
             actions.append("talk to traveler")
@@ -66,16 +79,26 @@ letter_room (old_letter) -> threshold (talk traveler) -> passage -> ending
                 if obj in context.available_objects and obj not in context.objects_examined:
                     actions.append(f"examine {obj}")
 
-        # After discoveries, talk to companion
+        # After discoveries, talk to companion about recognition and purpose
         if "companion" in context.available_characters:
             if "found_companion_origin" in context.flags_discovered:
                 actions.append("ask companion about recognition")
+            if "companion_admitted_recognition" in context.flags_discovered:
+                actions.append("ask companion about purpose")
+                actions.append("ask companion about the player")
 
         # Letter room for old_letter
         if "letter_room" in context.exits and "letter_room" not in context.rooms_visited:
             actions.append("go letter_room")
+        if context.current_room == "letter_room":
+            if "old_letter" in context.available_objects and "old_letter" not in context.objects_examined:
+                actions.append("examine old_letter")
 
-        # End game
+        # Talk to traveler to progress the story
+        if "traveler" in context.available_characters:
+            actions.append("talk to traveler")
+
+        # End game - try to reach passage
         if "passage" in context.exits:
             actions.append("go passage")
 

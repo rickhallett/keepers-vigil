@@ -9,7 +9,8 @@ from anthropic import Anthropic
 
 from models.intent import Intent, IntentType
 from models.state import GameState
-from data.rooms import ROOMS, get_visible_objects
+from data.rooms import ROOMS, get_visible_objects, resolve_room_alias
+from data.objects import resolve_object_alias
 from .prompts import INTENT_CLASSIFICATION_PROMPT, build_intent_context
 
 logger = logging.getLogger(__name__)
@@ -69,12 +70,29 @@ def _classify_intent_sync(player_input: str, state: GameState) -> Intent:
 
     parsed = json.loads(response_text)
 
+    # Resolve target aliases
+    target = parsed.get("target")
+    intent_type = parsed.get("intent", "UNKNOWN")
+
+    if target:
+        # For MOVE, resolve room aliases
+        if intent_type == "MOVE":
+            resolved = resolve_room_alias(target, room_id)
+            if resolved:
+                target = resolved
+
+        # For EXAMINE, resolve object aliases
+        elif intent_type == "EXAMINE":
+            resolved = resolve_object_alias(target)
+            if resolved:
+                target = resolved
+
     elapsed = (time.perf_counter() - start_time) * 1000
-    logger.debug(f"Intent classified in {elapsed:.0f}ms: {parsed.get('intent')}")
+    logger.debug(f"Intent classified in {elapsed:.0f}ms: {intent_type} -> {target}")
 
     return Intent(
-        intent=IntentType(parsed.get("intent", "UNKNOWN")),
-        target=parsed.get("target"),
+        intent=IntentType(intent_type),
+        target=target,
         subject=parsed.get("subject"),
         confidence=parsed.get("confidence", "medium"),
     )
