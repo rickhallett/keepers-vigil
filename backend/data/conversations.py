@@ -63,7 +63,7 @@ COMPANION_TOPICS = {
     "recognition": {
         "requires_flag": "found_companion_origin",
         "sets_flag": "companion_admitted_recognition",
-        "prompt_context": "The companion can no longer evade. 'Yes. I know them. I have known them since I first woke. They made me.' This sets companion_admitted_recognition. The companion speaks of waiting, of not knowing if they would ever meet, of uncertainty about what it would mean.",
+        "prompt_context": "The companion can no longer evade. 'Yes. I know them. I have known them since I first woke. They made me.' This sets companion_admitted_recognition. The companion speaks of waiting, of not knowing if they would ever meet, of uncertainty about what it would mean. The companion might glance toward the shelves in the archive, as if remembering something—there may be more to find there, documents the creator left behind.",
     },
     "purpose": {
         "requires_flag": "companion_admitted_recognition",

@@ -33,7 +33,7 @@ OBJECTS = {
         "sets_flag": "found_companion_origin",
         "requires_flag": "found_technical_diagrams",
         "hidden": False,
-        "narrative_note": "The companion's reaction is the key here. This is what prompts confrontation.",
+        "narrative_note": "The companion's reaction is the key here. This is what prompts confrontation. When the device is moved, hint that there are documents or a journal behind where it rested—the creator's journal is now visible in the archive.",
     },
     "creator_journal": {
         "name": "Creator's Journal",
