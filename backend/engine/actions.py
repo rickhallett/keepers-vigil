@@ -321,7 +321,7 @@ def _execute_use(intent: Intent, state: GameState) -> tuple[GameState, ActionRes
 
 
 def _execute_help(state: GameState) -> tuple[GameState, ActionResult]:
-    """Show help information with contextual suggestions."""
+    """Show help information with contextual and room-specific suggestions."""
     base_help = """You can interact with the world by typing natural language commands. Try:
 - LOOK or LOOK AROUND to see your surroundings
 - EXAMINE [object] to study something closely
@@ -330,12 +330,28 @@ def _execute_help(state: GameState) -> tuple[GameState, ActionResult]:
 - ASK [character] ABOUT [topic] to inquire about something specific
 - INVENTORY to see what you carry"""
 
+    # Room-specific tips
+    room_tips = {
+        "archive": "The archive holds many secrets. Try examining the technical diagrams or the strange device on the shelves.",
+        "letter_room": "Letters from travelers past fill this room. Some are old, very old.",
+        "keeper_cell": "Your quarters. The desk holds a journal and logs that span countless vigils.",
+        "threshold": "The traveler waits here. Speaking with them, or with the companion, may reveal much.",
+        "passage": "The way forward. When you are ready, the light will welcome you.",
+    }
+
+    room_id = state.current_room.value
+    room_tip = room_tips.get(room_id)
+
     # Add contextual suggestions based on progress
     suggestions = get_contextual_suggestions(state)
+
+    help_parts = [base_help]
+    if room_tip:
+        help_parts.append(room_tip)
     if suggestions:
-        help_text = base_help + "\n\n" + suggestions[0]
-    else:
-        help_text = base_help
+        help_parts.append(suggestions[0])
+
+    help_text = "\n\n".join(help_parts)
 
     return state, ActionResult(
         success=True,

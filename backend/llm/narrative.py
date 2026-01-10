@@ -104,7 +104,11 @@ async def generate_narrative(
     # Check for inventory with no items
     if action == "INVENTORY":
         if not state.inventory:
-            return "You carry nothing but your purpose here. The station provides what is needed."
+            base_msg = "You carry nothing but your purpose here. The station provides what is needed."
+            # Add contextual suggestion based on progress
+            if not state.flags.found_technical_diagrams:
+                return f"{base_msg} The archive might hold items worth carrying."
+            return base_msg
         items = ", ".join(state.inventory)
         return f"You carry: {items}"
 

@@ -131,6 +131,12 @@ def validate_intent(intent: Intent, state: GameState) -> bool | str:
         if target not in room.get("characters", []):
             return f"You don't see {intent.target} here."
 
+        # Contextual guidance for asking about the player/keeper
+        subject = (intent.subject or "").lower()
+        if target == "companion" and any(word in subject for word in ["player", "keeper", "me", "myself", "who am i"]):
+            if not flags_dict.get("found_keeper_logs", False):
+                return "The companion tilts its head. 'You? There is much I could say, but... have you looked at the keeper's logs? In the cell. They might help you understand the question you're asking.'"
+
         return True
 
     # GIVE validation
