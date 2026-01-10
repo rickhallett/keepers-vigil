@@ -42,7 +42,11 @@ COMPANION_TOPICS = {
     },
     "the_traveler": {
         "requires_flag": None,
-        "prompt_context": "The companion observes the traveler is confused, which is normal. It suggests patience, exploration. It does NOT yet reveal any recognition. If the player has found_technical_diagrams, the companion's responses become slightly more careful, more measured.",
+        "prompt_context": "The companion observes the traveler is confused, which is normal. It suggests patience, exploration. It does NOT yet reveal any recognition. It may mention that travelers eventually find their way to the passage when ready. If the player has found_technical_diagrams, the companion's responses become slightly more careful, more measured.",
+    },
+    "passage": {
+        "requires_flag": None,
+        "prompt_context": "The companion speaks of the passage with quiet reverence. 'It is where travelers go when they are ready. Not an ending—a continuation. The passage opens when the time is right.' If asked how to open it: 'Understanding. Discovery. When you have helped the traveler remember enough of themselves, when the truth has surfaced... the way opens.'",
     },
     "itself": {
         "requires_flag": None,

@@ -3,7 +3,7 @@
 **Priority:** MEDIUM
 **Category:** ux_flow
 **Effort:** low
-**Status:** proposed
+**Status:** complete
 
 ## Affected Files
 
