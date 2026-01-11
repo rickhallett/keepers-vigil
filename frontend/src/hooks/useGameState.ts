@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react';
-import { api } from '../api/client';
+import { useState, useCallback, useRef, useEffect } from 'react';
+import { api, isApiError } from '../api/client';
 import type { NewGameResponse, CommandResponse } from '../api/client';
 
 export interface NarrativeEntry {
@@ -33,8 +33,50 @@ const initialState: GameState = {
 
 let entryId = 0;
 
+// Error message mapping for user-friendly messages
+function getErrorMessage(error: unknown): string {
+  if (isApiError(error)) {
+    switch (error.status) {
+      case 429:
+        return 'Too many requests. Please wait a moment before trying again.';
+      case 404:
+        return 'Session not found. Please start a new game.';
+      case 500:
+        return 'The station experiences a momentary disturbance. Please try again.';
+      default:
+        return error.message || 'Something went wrong.';
+    }
+  }
+  return error instanceof Error ? error.message : 'An unexpected error occurred.';
+}
+
 export function useGameState() {
   const [state, setState] = useState<GameState>(initialState);
+
+  // Use refs to avoid stale closures
+  const sessionIdRef = useRef<string | null>(null);
+  const isLoadingRef = useRef(false);
+  const errorTimeoutRef = useRef<number | undefined>(undefined);
+
+  // Keep refs in sync with state
+  useEffect(() => {
+    sessionIdRef.current = state.sessionId;
+    isLoadingRef.current = state.isLoading;
+  }, [state.sessionId, state.isLoading]);
+
+  // Auto-dismiss errors after 5 seconds
+  useEffect(() => {
+    if (state.error) {
+      errorTimeoutRef.current = window.setTimeout(() => {
+        setState((prev) => ({ ...prev, error: null }));
+      }, 5000);
+    }
+    return () => {
+      if (errorTimeoutRef.current) {
+        window.clearTimeout(errorTimeoutRef.current);
+      }
+    };
+  }, [state.error]);
 
   const addNarrative = useCallback((text: string, type: 'narrator' | 'player') => {
     setState((prev) => ({
@@ -78,13 +120,14 @@ export function useGameState() {
       setState((prev) => ({
         ...prev,
         isLoading: false,
-        error: err instanceof Error ? err.message : 'Failed to start game',
+        error: getErrorMessage(err),
       }));
     }
   }, []);
 
   const sendCommand = useCallback(async (input: string) => {
-    if (!state.sessionId || state.isLoading) return;
+    // Use refs to avoid stale closure issues
+    if (!sessionIdRef.current || isLoadingRef.current) return;
 
     // Add player input to narrative
     addNarrative(`> ${input}`, 'player');
@@ -92,7 +135,7 @@ export function useGameState() {
     setState((prev) => ({ ...prev, isLoading: true, error: null }));
 
     try {
-      const response: CommandResponse = await api.sendCommand(state.sessionId, input);
+      const response: CommandResponse = await api.sendCommand(sessionIdRef.current, input);
 
       setState((prev) => ({
         ...prev,
@@ -104,15 +147,20 @@ export function useGameState() {
 
       addNarrative(response.narrative, 'narrator');
     } catch (err) {
+      const errorMessage = getErrorMessage(err);
+
       setState((prev) => ({
         ...prev,
         isLoading: false,
-        error: err instanceof Error ? err.message : 'Failed to process command',
+        error: errorMessage,
       }));
 
-      addNarrative('Something went wrong. Please try again.', 'narrator');
+      // Only add narrative error for non-rate-limit errors
+      if (!isApiError(err) || err.status !== 429) {
+        addNarrative('Something went wrong. Please try again.', 'narrator');
+      }
     }
-  }, [state.sessionId, state.isLoading, addNarrative]);
+  }, [addNarrative]);
 
   const resetGame = useCallback(() => {
     setState(initialState);
