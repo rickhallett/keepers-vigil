@@ -3,31 +3,19 @@
 import asyncio
 import json
 import logging
-import os
 import time
-from anthropic import Anthropic
 
 from models.intent import Intent, IntentType
 from models.state import GameState
 from data.rooms import ROOMS, get_visible_objects, resolve_room_alias
 from data.objects import resolve_object_alias
+from .client import get_client
 from .prompts import INTENT_CLASSIFICATION_PROMPT, build_intent_context
 
 logger = logging.getLogger(__name__)
 
 # Timeout for intent classification (seconds)
 INTENT_TIMEOUT = 10.0
-
-
-_client: Anthropic | None = None
-
-
-def get_client() -> Anthropic:
-    """Get or create Anthropic client."""
-    global _client
-    if _client is None:
-        _client = Anthropic()
-    return _client
 
 
 def _classify_intent_sync(player_input: str, state: GameState) -> Intent:

@@ -4,11 +4,11 @@ import asyncio
 import hashlib
 import logging
 import time
-from anthropic import Anthropic
 
 from models.state import GameState
 from engine.actions import ActionResult
 from data.conversations import ENDINGS
+from .client import get_client
 from .prompts import (
     NARRATIVE_SYSTEM_PROMPT,
     OPENING_NARRATIVE_PROMPT,
@@ -55,17 +55,6 @@ def clear_cache():
     _narrative_cache.clear()
     _cache_stats["hits"] = 0
     _cache_stats["misses"] = 0
-
-
-_client: Anthropic | None = None
-
-
-def get_client() -> Anthropic:
-    """Get or create Anthropic client."""
-    global _client
-    if _client is None:
-        _client = Anthropic()
-    return _client
 
 
 # Fallback descriptions for when LLM fails
@@ -234,7 +223,7 @@ async def generate_opening_narrative() -> str:
         return response.content[0].text.strip()
 
     except Exception as e:
-        print(f"Opening narrative error: {e}")
+        logger.error(f"Opening narrative error: {e}")
         return FALLBACK_OPENING
 
 
@@ -265,7 +254,7 @@ End with a sense of completion but also possibility."""
         return response.content[0].text.strip()
 
     except Exception as e:
-        print(f"Ending narrative error: {e}")
+        logger.error(f"Ending narrative error: {e}")
         return ending["narrative_prompt"]
 
 
