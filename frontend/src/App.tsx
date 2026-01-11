@@ -43,6 +43,13 @@ function App() {
   return (
     <div className={`game-container ${isKeyboardVisible ? 'keyboard-visible' : ''}`}>
       <StatusBar currentRoom={currentRoom} inventory={inventory} exits={exits} />
+
+      {error && (
+        <div className="error-toast" role="alert" aria-live="polite">
+          {error}
+        </div>
+      )}
+
       <NarrativeDisplay entries={narrative} isLoading={isLoading} />
 
       <div className="command-input-wrapper">
@@ -53,8 +60,6 @@ function App() {
         />
         <CommandInput onSubmit={sendCommand} disabled={isLoading} />
       </div>
-
-      {error && <p className="error-message">{error}</p>}
 
       {isLoading && (
         <div className="loading-overlay" aria-live="polite">
