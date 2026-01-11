@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import type { NarrativeEntry } from '../hooks/useGameState';
 import { useTypewriter } from '../hooks/useTypewriter';
 import '../styles/game.css';
@@ -8,7 +8,7 @@ interface NarrativeDisplayProps {
   isLoading: boolean;
 }
 
-function NarrativeEntryComponent({
+const NarrativeEntryComponent = memo(function NarrativeEntryComponent({
   entry,
   isLatest,
 }: {
@@ -33,7 +33,7 @@ function NarrativeEntryComponent({
       ))}
     </div>
   );
-}
+});
 
 export function NarrativeDisplay({ entries, isLoading }: NarrativeDisplayProps) {
   const containerRef = useRef<HTMLDivElement>(null);
