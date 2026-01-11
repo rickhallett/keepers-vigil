@@ -1,7 +1,9 @@
 """API routes for the game."""
 
+import time
 import uuid
-from fastapi import APIRouter, HTTPException
+from collections import defaultdict
+from fastapi import APIRouter, HTTPException, Request
 
 from models import (
     GameState,
@@ -20,9 +22,50 @@ from llm.narrative import generate_opening_narrative, generate_ending_narrative
 router = APIRouter(prefix="/api")
 
 
+# Simple in-memory rate limiter
+class RateLimiter:
+    """Sliding window rate limiter."""
+
+    def __init__(self, requests_per_minute: int = 30):
+        self.requests_per_minute = requests_per_minute
+        self.window_seconds = 60
+        self.requests: dict[str, list[float]] = defaultdict(list)
+
+    def is_allowed(self, client_id: str) -> bool:
+        """Check if request is allowed for client."""
+        now = time.time()
+        window_start = now - self.window_seconds
+
+        # Clean old requests
+        self.requests[client_id] = [
+            ts for ts in self.requests[client_id] if ts > window_start
+        ]
+
+        if len(self.requests[client_id]) >= self.requests_per_minute:
+            return False
+
+        self.requests[client_id].append(now)
+        return True
+
+
+rate_limiter = RateLimiter(requests_per_minute=30)
+
+
+def get_client_id(request: Request) -> str:
+    """Extract client identifier from request."""
+    forwarded = request.headers.get("x-forwarded-for")
+    if forwarded:
+        return forwarded.split(",")[0].strip()
+    return request.client.host if request.client else "unknown"
+
+
 @router.post("/new-game", response_model=NewGameResponse)
-async def new_game() -> NewGameResponse:
+async def new_game(request: Request) -> NewGameResponse:
     """Initialize a new game session."""
+    client_id = get_client_id(request)
+    if not rate_limiter.is_allowed(client_id):
+        raise HTTPException(status_code=429, detail="Too many requests")
+
     session_id = str(uuid.uuid4())
     state = GameState(session_id=session_id)
 
@@ -45,8 +88,12 @@ async def new_game() -> NewGameResponse:
 
 
 @router.post("/command", response_model=CommandResponse)
-async def process_command(request: CommandRequest) -> CommandResponse:
+async def process_command(request: CommandRequest, req: Request) -> CommandResponse:
     """Process a player command."""
+    client_id = get_client_id(req)
+    if not rate_limiter.is_allowed(client_id):
+        raise HTTPException(status_code=429, detail="Too many requests")
+
     state = await load_state(request.session_id)
 
     if not state:
